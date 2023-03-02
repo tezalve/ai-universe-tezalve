@@ -1,17 +1,21 @@
-const loaddata = async() => {
+// API call/fetch
+const loaddata = async(limit) => {
     const url = `https://openapi.programming-hero.com/api/ai/tools/`;
     try{
         const res = await fetch(url);
         const data = await res.json();
-        displayTech(data);
+        displayTech(data,limit);
     }
     catch(e){
         console.log(e);
     }
 }
 
+// initial load
 loaddata();
 
+
+// creating div elemnts and showing data from api
 const displayTech = (data,limit = 6) =>{
     const techContainer = document.getElementById('tech-container');
     let count = 0;
@@ -41,3 +45,12 @@ const displayTech = (data,limit = 6) =>{
         }
     });
 }
+
+document.getElementById("more").addEventListener("click", function(){
+    const techDiv = document.getElementById("tech-container");
+    techDiv.innerHTML = '';
+    loaddata(12);
+    const more = document.getElementById("more");
+    more.remove();
+});
+
