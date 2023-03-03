@@ -113,19 +113,37 @@ const displayTechDetail = data => {
     modalimg.alt = data.image_link[1];
 
     example_header = document.getElementById('exheader');
-    example_header.innerText = data.input_output_examples[0].input;
     example_para = document.getElementById('expara');
-    example_para.innerText = data.input_output_examples[0].output;
+    if(data.input_output_examples != null){
+        example_header.innerText = data.input_output_examples[0].input;
+        example_para.innerText = data.input_output_examples[0].output;
+    }else{
+        example_header.innerText = 'Can You Give Any Example?';
+        example_para.innerText = 'No! Not Yet! Take a break';
+    }
+    
     description = document.getElementById('description');
     description.innerText = data.description;
-
+    
     pricing = document.getElementById('pricing');
     const listprices = [];
-    for(let i=0; i < data.pricing.length; i++){
-        listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${data.pricing[i].price + '<br>' + data.pricing[i].plan}</li>`;
+    const newData = {
+        pricing : [
+            {plan: 'Basic', price: 'Free of Cost'},
+            {plan: 'Pro', price: 'Free of Cost'},
+            {plan: 'Enterprise', price: 'Free of Cost'}
+        ],
+    }
+    for(let i=0; i < data.pricing?.length; i++){
+        if(data.pricing != null){
+            listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${data.pricing[i].price + '/' + data.pricing[i].plan}</li>`;
+        }else{
+            listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${newData.pricing[i].price + '/' + newData.pricing[i].plan}</li>`;
+        }
     }
     let priceall = listprices.join("");
     pricing.innerHTML = priceall;
+    
 
     features = document.getElementById('features');
     const listFeatures = [];
@@ -137,11 +155,24 @@ const displayTechDetail = data => {
 
     integration = document.getElementById('integration');
     const integrations = [];
-    for(let i=0; i < data.integrations.length; i++){
-        integrations[i] = `<li">${data.integrations[i]}</li>`;
+    if(data.integrations != null){
+        for(let i=0; i < data.integrations?.length; i++){
+            integrations[i] = `<li> ${data.integrations[i]}</li>`;
+        }
+        let integrationall = integrations.join("");
+        integration.innerHTML = integrationall;
+    }else{
+        integration.innerHTML = 'No Data Found';
     }
-    let integrationall = integrations.join("");
-    integration.innerHTML = integrationall;
+    
+
+    acc = document.getElementById('acc');
+    if(data.accuracy.score != null){
+        acc.classList.remove("d-none");
+        acc.innerText = 100*data.accuracy.score + '% Accuracy';
+    }else{
+        acc.classList.add("d-none");
+    }
 }
 
 
