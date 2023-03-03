@@ -111,7 +111,10 @@ const displayTechDetail = data => {
     modalimg = document.getElementById('mimg');
     modalimg.src = data.image_link[0];
     modalimg.alt = data.image_link[1];
-
+    example_header = document.getElementById('exheader');
+    example_header.innerText = data.input_output_examples[0].input;
+    example_para = document.getElementById('expara');
+    example_para.innerText = data.input_output_examples[0].output;
 }
 
 
