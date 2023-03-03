@@ -111,21 +111,37 @@ const displayTechDetail = data => {
     modalimg = document.getElementById('mimg');
     modalimg.src = data.image_link[0];
     modalimg.alt = data.image_link[1];
+
     example_header = document.getElementById('exheader');
     example_header.innerText = data.input_output_examples[0].input;
     example_para = document.getElementById('expara');
     example_para.innerText = data.input_output_examples[0].output;
     description = document.getElementById('description');
     description.innerText = data.description;
+
     pricing = document.getElementById('pricing');
     const listprices = [];
-        for(let i=0; i < data.pricing.length; i++){
-            listprices[i] = `<li class="bg-secondary m-1 rounded">${data.pricing[i].price + '<br>' + data.pricing[i].plan}</li>`;
-        }
-        let priceall = listprices.join("");
-    console.log(priceall);
+    for(let i=0; i < data.pricing.length; i++){
+        listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${data.pricing[i].price + '<br>' + data.pricing[i].plan}</li>`;
+    }
+    let priceall = listprices.join("");
     pricing.innerHTML = priceall;
 
+    features = document.getElementById('features');
+    const listFeatures = [];
+    for(let i=0; i < Object.keys(data.features).length; i++){
+        listFeatures[i] = `<li>${data.features[i+1].feature_name}</li>`;
+    }
+    let featuresAll = listFeatures.join("");
+    features.innerHTML = featuresAll;
+
+    integration = document.getElementById('integration');
+    const integrations = [];
+    for(let i=0; i < data.integrations.length; i++){
+        integrations[i] = `<li">${data.integrations[i]}</li>`;
+    }
+    let integrationall = integrations.join("");
+    integration.innerHTML = integrationall;
 }
 
 
