@@ -99,7 +99,6 @@ const loadTechDetail = async(id) => {
     try{
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data.data);
         displayTechDetail(data.data);
     }
     catch(e){
@@ -119,7 +118,7 @@ const displayTechDetail = data => {
         example_para.innerText = data.input_output_examples[0].output;
     }else{
         example_header.innerText = 'Can You Give Any Example?';
-        example_para.innerText = 'No! Not Yet! Take a break';
+        example_para.innerText = 'No! Not Yet! Take a break!!!';
     }
     
     description = document.getElementById('description');
@@ -134,13 +133,21 @@ const displayTechDetail = data => {
             {plan: 'Enterprise', price: 'Free of Cost'}
         ],
     }
-    for(let i=0; i < data.pricing?.length; i++){
-        if(data.pricing != null){
+    if(data.pricing != null){
+        for(let i=0; i < data.pricing.length; i++){
             listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${data.pricing[i].price + '/' + data.pricing[i].plan}</li>`;
-        }else{
+        }
+    }else{
+        for(let i=0; i < newData.pricing.length; i++){
             listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${newData.pricing[i].price + '/' + newData.pricing[i].plan}</li>`;
         }
     }
+    
+        
+            
+        
+            
+    
     let priceall = listprices.join("");
     pricing.innerHTML = priceall;
     
@@ -156,7 +163,7 @@ const displayTechDetail = data => {
     integration = document.getElementById('integration');
     const integrations = [];
     if(data.integrations != null){
-        for(let i=0; i < data.integrations?.length; i++){
+        for(let i=0; i < data.integrations.length; i++){
             integrations[i] = `<li> ${data.integrations[i]}</li>`;
         }
         let integrationall = integrations.join("");
