@@ -3,3 +3,8 @@
     height: 30vh;
     object-fit: cover;
 }
+
+i:hover {
+    transform: scale(1.2);
+    cursor: pointer;
+}

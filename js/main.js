@@ -49,9 +49,14 @@ const displayTechElements = (data, limit=6) => {
                         </ol>
                     </div>
                     <hr/>
-                    <div class="card-body">
-                        <h5 class="card-title">${tech.name}</h5>
-                        <i class="bi bi-calendar-date"> ${tech.published_in}</i>
+                    <div class="d-flex justify-content-between card-body">
+                        <div>
+                            <h5 class="card-title">${tech.name}</h5>
+                            <i class="bi bi-calendar-date"> ${tech.published_in}</i>
+                        </div>
+                        <div>
+                            <i id="${tech.id}" class="fa fa-arrow-right fa-3x"></i>
+                        </div>
                     </div>
                 </div>
             `
@@ -68,7 +73,6 @@ const displayTechElements = (data, limit=6) => {
 
 // initial load
 loaddata();
-document.getElementById("more").classList.remove("d-none");
 
 // shomore button to show everything
 document.getElementById("more").addEventListener("click", function(){
