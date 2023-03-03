@@ -41,7 +41,7 @@ const displayTechElements = (data, limit=6) => {
             techDiv.classList.add('col');
             techDiv.innerHTML = `
                 <div class="card h-100">
-                    <img src="${tech.image}" class="card-img-top" alt="">
+                    <img src="${tech.image}" class="card-img-top cit" alt="">
                     <div class="card-body">
                         <h5 class="card-title">Features</h5>
                         <ol>
@@ -135,11 +135,11 @@ const displayTechDetail = data => {
     }
     if(data.pricing != null){
         for(let i=0; i < data.pricing.length; i++){
-            listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${data.pricing[i].price + '/' + data.pricing[i].plan}</li>`;
+            listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${data.pricing[i].price + '/<br>' + data.pricing[i].plan}</li>`;
         }
     }else{
         for(let i=0; i < newData.pricing.length; i++){
-            listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${newData.pricing[i].price + '/' + newData.pricing[i].plan}</li>`;
+            listprices[i] = `<li class="bg-secondary m-1 p-2 rounded">${newData.pricing[i].price + '/<br>' + newData.pricing[i].plan}</li>`;
         }
     }
     
