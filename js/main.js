@@ -115,6 +115,17 @@ const displayTechDetail = data => {
     example_header.innerText = data.input_output_examples[0].input;
     example_para = document.getElementById('expara');
     example_para.innerText = data.input_output_examples[0].output;
+    description = document.getElementById('description');
+    description.innerText = data.description;
+    pricing = document.getElementById('pricing');
+    const listprices = [];
+        for(let i=0; i < data.pricing.length; i++){
+            listprices[i] = `<li class="bg-secondary m-1 rounded">${data.pricing[i].price + '<br>' + data.pricing[i].plan}</li>`;
+        }
+        let priceall = listprices.join("");
+    console.log(priceall);
+    pricing.innerHTML = priceall;
+
 }
 
 
