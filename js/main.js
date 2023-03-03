@@ -55,11 +55,11 @@ const displayTechElements = (data, limit=6) => {
                             <i class="bi bi-calendar-date"> ${tech.published_in}</i>
                         </div>
                         <div>
-                            <i id="${tech.id}" class="fa fa-arrow-right fa-3x"></i>
+                            <i onclick="loadTechDetail(${tech.id})" class="fa fa-arrow-right fa-3x" data-bs-toggle="modal" data-bs-target="#exampleModal"></i>
                         </div>
                     </div>
                 </div>
-            `
+            `;
             techContainer.appendChild(techDiv);
             count++;
             return true;
@@ -92,6 +92,27 @@ document.getElementById("sort").addEventListener("click", function(){
     techDiv.innerHTML = '';
     loaddata(12, true);
 });
+
+const loadTechDetail = async(id) => {
+    id = id.toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false});
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    try{
+        const res = await fetch(url);
+        const data = await res.json();
+        console.log(data.data);
+        displayTechDetail(data.data);
+    }
+    catch(e){
+        console.log(e);
+    }
+}
+
+const displayTechDetail = data => {
+    modalimg = document.getElementById('mimg');
+    modalimg.src = data.image_link[0];
+    modalimg.alt = data.image_link[1];
+
+}
 
 
 
