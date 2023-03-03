@@ -1,18 +1,31 @@
 // API call/fetch
-const loaddata = async(limit) => {
+const loaddata = async(limit, sorted) => {
     const url = `https://openapi.programming-hero.com/api/ai/tools/`;
     try{
         const res = await fetch(url);
         const data = await res.json();
-        displayTech(data,limit);
+        displayTech(data,limit, sorted);
     }
     catch(e){
         console.log(e);
     }
 }
 
+// sort the data gotten from the api and pass parameters to function depending on
+// which button is clicked
+const displayTech = (data, limit, sorted=false) =>{
+    let sortedData = JSON.parse(JSON.stringify(data));
+    sortedData.data.tools.sort((a,b) => Date.parse(a.published_in) - Date.parse(b.published_in));
+
+    if(sorted){
+        displayTechElements(sortedData,limit);
+    }else{
+        displayTechElements(data,limit);
+    }
+}
+
 // creating div elemnts and showing data from api
-const displayTech = (data,limit = 6) =>{
+const displayTechElements = (data, limit=6) => {
     const techContainer = document.getElementById('tech-container');
     let count = 0;
     data.data.tools.every(tech => {
@@ -51,22 +64,30 @@ const displayTech = (data,limit = 6) =>{
         }
     });
     document.getElementById("spinner").classList.add("d-none");
-    document.getElementById("more").classList.remove("d-none");
 }
 
 // initial load
 loaddata();
+document.getElementById("more").classList.remove("d-none");
 
 // shomore button to show everything
 document.getElementById("more").addEventListener("click", function(){
+    document.getElementById("show-btn").classList.add("d-none");
     document.getElementById("spinner").classList.remove("d-none");
     const techDiv = document.getElementById("tech-container");
     techDiv.innerHTML = '';
     loaddata(12);
-    const more = document.getElementById("more");
-    more.remove();
+
 });
 
+// sort button clicked
+document.getElementById("sort").addEventListener("click", function(){
+    document.getElementById("show-btn").classList.add("d-none");
+    document.getElementById("spinner").classList.remove("d-none");
+    const techDiv = document.getElementById("tech-container");
+    techDiv.innerHTML = '';
+    loaddata(12, true);
+});
 
 
 
